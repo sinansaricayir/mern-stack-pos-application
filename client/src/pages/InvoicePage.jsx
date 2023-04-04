@@ -1,9 +1,9 @@
 import Header from "../components/header/Header";
 import { Table, Card, Button } from "antd";
 import { useState } from "react";
-import CreateInvoice from "../components/cart/CreateInvoice";
+import PrintInvoice from "../components/invoice/PrintInvoice";
 
-const CartPage = () => {
+const InvoicePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dataSource = [
@@ -43,6 +43,7 @@ const CartPage = () => {
     <>
       <Header />
       <div className="px-6">
+        <h1 className="text-4xl text-center font-bold mb-4">Faturalar</h1>
         <Table
           dataSource={dataSource}
           columns={columns}
@@ -51,35 +52,20 @@ const CartPage = () => {
         />
         <div className="flex justify-end mt-4">
           <Card className="w-72">
-            <div className="flex justify-between">
-              <span>Ara Toplam</span>
-              <span>110.00₺</span>
-            </div>
-            <div className="flex justify-between my-2">
-              <span>KDV Toplam %8</span>
-              <span className="text-red-600">+18.44₺</span>
-            </div>
-            <div className="flex justify-between">
-              <b>Toplam</b>
-              <b>110.00₺</b>
-            </div>
             <Button
               size="large"
               type="primary"
               className="mt-4 w-full"
               onClick={() => setIsModalOpen(true)}
             >
-              Sipariş Oluştur
+              Yazdır
             </Button>
           </Card>
         </div>
       </div>
-      <CreateInvoice
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
+      <PrintInvoice isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   );
 };
 
-export default CartPage;
+export default InvoicePage;
