@@ -39,7 +39,7 @@ const InvoicePage = () => {
     <>
       <Header />
       <div className="px-6">
-        <h1 className="text-4xl text-center font-bold mb-4">Müşterilerim</h1>
+        <h1 className="text-4xl text-center font-bold mb-4">Müşteriler</h1>
         <Table
           dataSource={dataSource}
           columns={columns}
