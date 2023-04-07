@@ -9,6 +9,7 @@ dotenv.config();
 
 //routes
 const categoryRoute = require("./routes/categories.js");
+const productRoute = require("./routes/products.js");
 
 const connect = async () => {
   try {
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/categories", categoryRoute);
+app.use("/api/products", productRoute);
 
 app.listen(port, () => {
   connect();

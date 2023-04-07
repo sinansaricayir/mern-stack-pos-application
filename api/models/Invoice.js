@@ -11,7 +11,7 @@ const InvoiceSchema = mongoose.Schema(
     totalAmount: { type: Number, required: true },
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 
