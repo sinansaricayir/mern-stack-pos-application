@@ -7,17 +7,16 @@ import Products from "../components/products/Products";
 function HomePage() {
   const [categories, setCategories] = useState([]);
 
-  const getCategories = async () => {
-    try {
-      const res = await fetch("http://localhost:4000/api/categories/get-all");
-      const data = await res.json();
-      setCategories(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/categories/get-all");
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getCategories();
   }, []);
 
