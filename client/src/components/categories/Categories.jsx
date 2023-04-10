@@ -23,7 +23,7 @@ const Categories = ({ categories, setCategories }) => {
         />
       </li>
 
-      <li className="category-item  !bg-red-600 hover:opacity-90">
+      <li className="category-item  !bg-fuchsia-600	 hover:opacity-90">
         <EditOutlined
           className="md:text-3xl text-2xl"
           onClick={() => setIsEditModalOpen(true)}

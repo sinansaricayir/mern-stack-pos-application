@@ -1,5 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
-import { message } from "antd";
+import { Button, Form, Input, Modal, message } from "antd";
 
 const Add = ({
   isAddModalOpen,
@@ -49,7 +48,7 @@ const Add = ({
             },
           ]}
         >
-          <Input />
+          <Input placeholder="kategori adı giriniz" />
         </Form.Item>
         <Form.Item className="flex justify-end mb-0">
           <Button type="primary" htmlType="submit">

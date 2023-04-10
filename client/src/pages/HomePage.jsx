@@ -6,6 +6,7 @@ import Products from "../components/products/Products";
 
 function HomePage() {
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -28,7 +29,11 @@ function HomePage() {
           <Categories categories={categories} setCategories={setCategories} />
         </div>
         <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10">
-          <Products />
+          <Products
+            products={products}
+            setProducts={setProducts}
+            categories={categories}
+          />
         </div>
         <div className="cart-totals min-w-[300px] md:-mr-[24px] md:-mt-[24px] md:pb-0 pb-12">
           <CartTotals />
