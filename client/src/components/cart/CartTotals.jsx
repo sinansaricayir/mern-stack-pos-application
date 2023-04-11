@@ -1,15 +1,20 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import {
   ClearOutlined,
   PlusCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteProduct } from "../../redux/cartSlice";
+import {
+  deleteProduct,
+  increase,
+  decrease,
+  reset,
+} from "../../redux/cartSlice";
 
 const CartTotals = () => {
-  const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
@@ -17,59 +22,82 @@ const CartTotals = () => {
         Sepetteki Ürünler
       </h2>
       <ul className="cart-items px-2 flex flex-col gap-y-3 pt-2 py-2 overflow-y-auto">
-        {cartItems.map((item) => (
-          <li className="cart-item flex justify-between" key={item._id}>
-            <div className="flex items-center">
-              <img
-                src={item.img}
-                alt=""
-                className="h-16 w-16 object-cover cursor-pointer"
-                onClick={()=>dispatch(deleteProduct(item))}
-              />
-              <div className="flex flex-col pl-2">
-                <b>{item.title}</b>
-                <span>
-                  {item.price}₺ x {item.quantity}
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-x-1">
-              <Button
-                type="primary"
-                size="small"
-                className="w-full flex items-center justify-center !rounded-full"
-                icon={<PlusCircleOutlined />}
-              />
-              <span className="font-bold">{item.quantity}</span>
-              <Button
-                type="primary"
-                size="small"
-                className="w-full flex items-center justify-center !rounded-full"
-                icon={<MinusCircleOutlined />}
-              />
-            </div>
-          </li>
-        ))}
+        {cart.cartItems.length > 0
+          ? cart.cartItems.map((item) => (
+              <li className="cart-item flex justify-between" key={item._id}>
+                <div className="flex items-center">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="h-16 w-16 object-cover cursor-pointer"
+                    onClick={() => dispatch(deleteProduct(item))}
+                  />
+                  <div className="flex flex-col pl-2">
+                    <b>{item.title}</b>
+                    <span>
+                      {item.price}₺ x {item.quantity}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <Button
+                    type="primary"
+                    size="small"
+                    className="w-full flex items-center justify-center !rounded-full"
+                    icon={<PlusCircleOutlined />}
+                    onClick={() => dispatch(increase(item))}
+                  />
+                  <span className="font-bold inline-block w-6 text-center">
+                    {item.quantity}
+                  </span>
+                  <Button
+                    type="primary"
+                    size="small"
+                    className="w-full flex items-center justify-center !rounded-full"
+                    icon={<MinusCircleOutlined />}
+                    onClick={() => dispatch(decrease(item))}
+                  />
+                </div>
+              </li>
+            ))
+          : "Sepette ürün yok..."}
       </ul>
       <div className="cart-totals mt-auto">
         <div className="border-b border-t">
           <div className="flex justify-between p-2">
             <b>Ara Toplam</b>
-            <span>99₺</span>
+            <span>
+              {cart.total.toFixed(2) > 0 ? cart.total.toFixed(2) : 0}₺
+            </span>
           </div>
           <div className="flex justify-between p-2">
-            <b>KDV %8</b>
-            <span className="text-red-700">+7.92₺</span>
+            <b>KDV % {cart.tax}</b>
+            <span className="text-red-700">
+              {(cart.total * cart.tax) / 100 > 0
+                ? `+${((cart.total * cart.tax) / 100).toFixed(2)}`
+                : 0}
+              ₺
+            </span>
           </div>
         </div>
         <div className="border-b mt-4">
           <div className="flex justify-between p-2">
             <b className="text-xl text-green-500">Genel Toplam</b>
-            <span className="text-xl">99₺</span>
+            <span className="text-xl">
+              {(cart.total + (cart.total * cart.tax) / 100).toFixed(2) > 0
+                ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2)
+                : 0}
+              ₺
+            </span>
           </div>
         </div>
         <div className="py-4 px-2">
-          <Button type="primary" size="large" className="w-full">
+          <Button
+            type="primary"
+            size="large"
+            className="w-full"
+            disabled={cart.cartItems.length > 0 ? false : true}
+          >
             Sipariş Oluştur
           </Button>
           <Button
@@ -78,6 +106,13 @@ const CartTotals = () => {
             className="w-full mt-2 flex items-center justify-center"
             icon={<ClearOutlined />}
             danger
+            disabled={cart.cartItems.length > 0 ? false : true}
+            onClick={() => {
+              if (window.confirm("Emin misiniz?")) {
+                dispatch(reset());
+                message.info("Sepet başarıyla temizlendi.");
+              }
+            }}
           >
             Temizle
           </Button>
