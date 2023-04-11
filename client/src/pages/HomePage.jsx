@@ -24,7 +24,7 @@ function HomePage() {
   return (
     <>
       <Header />
-      <div className="home px-6 flex md:flex-row flex-col justify-between gap-10">
+      <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 h-screen">
         <div className="categories overflow-auto max-h-[calc(100vh_-_112px)] pb-10">
           <Categories categories={categories} setCategories={setCategories} />
         </div>
@@ -35,7 +35,7 @@ function HomePage() {
             categories={categories}
           />
         </div>
-        <div className="cart-totals min-w-[300px] md:-mr-[24px] md:-mt-[24px] md:pb-0 pb-12">
+        <div className="cart-totals min-w-[300px] md:-mr-[24px] md:-mt-[24px] md:pb-0 pb-12 border">
           <CartTotals />
         </div>
       </div>

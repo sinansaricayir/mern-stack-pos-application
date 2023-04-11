@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { message } from "antd";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -9,10 +10,23 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      state.cartItems.push(action.payload);
+      const cartFindItem = state.cartItems.find(
+        (item) => item._id === action.payload._id
+      );
+      if (cartFindItem) {
+        cartFindItem.quantity += 1;
+      } else {
+        state.cartItems.push(action.payload);
+      }
+    },
+    deleteProduct: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+      message.success("Ürün başarıyla silindi.");
     },
   },
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, deleteProduct } = cartSlice.actions;
 export default cartSlice.reducer;
