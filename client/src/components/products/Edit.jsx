@@ -170,7 +170,7 @@ const Edit = () => {
             <Input placeholder="ürün adı giriniz" />
           </Form.Item>
           <Form.Item
-            label={"Ürün Görseli"}
+            label={"Ürün Görsel Link Adresi"}
             name="img"
             rules={[
               {
