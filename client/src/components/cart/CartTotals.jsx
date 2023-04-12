@@ -1,4 +1,4 @@
-import { Button, message } from "antd";
+import { Button, Popconfirm, message } from "antd";
 import {
   ClearOutlined,
   PlusCircleOutlined,
@@ -55,7 +55,17 @@ const CartTotals = () => {
                     size="small"
                     className="w-full flex items-center justify-center !rounded-full"
                     icon={<MinusCircleOutlined />}
-                    onClick={() => dispatch(decrease(item))}
+                    onClick={() => {
+                      if (item.quantity === 1) {
+                        if (window.confirm("Ürün Silinsin Mi?")) {
+                          dispatch(decrease(item));
+                          message.info("Ürün Sepetten Silindi.");
+                        }
+                      }
+                      if (item.quantity > 1) {
+                        dispatch(decrease(item));
+                      }
+                    }}
                   />
                 </div>
               </li>
@@ -100,22 +110,30 @@ const CartTotals = () => {
           >
             Sipariş Oluştur
           </Button>
-          <Button
-            type="primary"
-            size="large"
+
+          <Popconfirm
+            title="Ürün Silme "
+            description="Ürünü silmek istediğinizden emin misiniz ?"
+            okText="Evet"
+            cancelText="Hayır"
+            onConfirm={() => dispatch(reset())}
             className="w-full mt-2 flex items-center justify-center"
-            icon={<ClearOutlined />}
-            danger
-            disabled={cart.cartItems.length > 0 ? false : true}
-            onClick={() => {
-              if (window.confirm("Emin misiniz?")) {
-                dispatch(reset());
-                message.info("Sepet başarıyla temizlendi.");
-              }
-            }}
           >
-            Temizle
-          </Button>
+            {cart.cartItems.length > 0 ? (
+              <Button
+                type="primary"
+                size="large"
+                className="w-full mt-2 flex items-center justify-center"
+                icon={<ClearOutlined />}
+                danger
+                disabled={cart.cartItems.length > 0 ? false : true}
+              >
+                Temizle
+              </Button>
+            ) : (
+              ""
+            )}
+          </Popconfirm>
         </div>
       </div>
     </div>

@@ -22,13 +22,11 @@ const cartSlice = createSlice({
       state.total += action.payload.price;
     },
     deleteProduct: (state, action) => {
-      if (window.confirm("Ürünü kaldırmak istediğinizden emin misiniz?")) {
-        state.cartItems = state.cartItems.filter(
-          (item) => item._id !== action.payload._id
-        );
-        state.total -= action.payload.price * action.payload.quantity;
-        message.info("Ürün başarıyla silindi.");
-      }
+      state.cartItems = state.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+      state.total -= action.payload.price * action.payload.quantity;
+      message.info("Ürün başarıyla silindi.");
     },
     increase: (state, action) => {
       const cartFindItem = state.cartItems.find(
@@ -44,11 +42,10 @@ const cartSlice = createSlice({
       cartFindItem.quantity -= 1;
       state.total -= cartFindItem.price;
 
-      if (cartFindItem.quantity == 0) {
+      if (cartFindItem.quantity === 0) {
         state.cartItems = state.cartItems.filter(
           (item) => item._id !== action.payload._id
         );
-        message.info("Ürün sepetten kaldırıldı!");
       }
     },
     reset: (state, action) => {
