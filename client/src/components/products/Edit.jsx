@@ -41,7 +41,6 @@ const Edit = () => {
         body: JSON.stringify({ ...values, productId: editingItem._id }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
-      message.success("Ürün başarıyla güncellendi.");
       setProducts(
         products.map((item) => {
           if (item._id === editingItem._id) {
@@ -56,6 +55,8 @@ const Edit = () => {
           return item;
         })
       );
+      message.success("Ürün başarıyla güncellendi.");
+      setIsEditModalOpen(false);
     } catch (error) {
       message.error("Bir şeyler yanlış gitti...");
     }
@@ -143,7 +144,7 @@ const Edit = () => {
         dataSource={products}
         columns={columns}
         rowKey={"_id"}
-        scroll={{ x: 1000, y: 600 }}
+        scroll={{ x: 1000, y: 500 }}
       />
       <Modal
         title="Yeni Ürün Ekle"

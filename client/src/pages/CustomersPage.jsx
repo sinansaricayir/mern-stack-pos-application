@@ -1,37 +1,45 @@
 import Header from "../components/header/Header";
 import { Table } from "antd";
+import { useEffect, useState } from "react";
 
 const InvoicePage = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const [invoices, setInvoices] = useState([]);
+
+  useEffect(() => {
+    const getInvoices = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/invoices/get-all");
+        const data = await res.json();
+        const newData = data.map((item) => {
+          return { ...item, key: item._id };
+        });
+        setInvoices(newData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getInvoices();
+  }, []);
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Müşteri Adı",
+      dataIndex: "customerName",
+      key: "customerName",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Telefon Numarası",
+      dataIndex: "customerPhoneNumber",
+      key: "customerPhoneNumber",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "İşlem Tarihi",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text, record) => {
+        return <span>{text.substring(0, 10)}</span>;
+      },
     },
   ];
 
@@ -41,10 +49,11 @@ const InvoicePage = () => {
       <div className="px-6">
         <h1 className="text-4xl text-center font-bold mb-4">Müşteriler</h1>
         <Table
-          dataSource={dataSource}
+          dataSource={invoices}
           columns={columns}
           bordered
           pagination={false}
+          scroll={{ x: 1200, y: 500 }}
         />
       </div>
     </>
