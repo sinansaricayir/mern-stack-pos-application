@@ -1,8 +1,30 @@
-import { Button, Form, Input, Carousel } from "antd";
+import { Button, Form, Input, Carousel, message } from "antd";
 import { Link } from "react-router-dom";
 import AuthCarousel from "../../components/auth/AuthCarousel";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    try {
+      setLoading(true);
+      const res = await fetch("http://localhost:4000/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      if (res.status === 200) {
+        message.success("Kayıt işlemi başarılı");
+        navigate("/login");
+        setLoading(false);
+      }
+    } catch (error) {
+      message.error("Birşeyler yolunda gitmedi!");
+    }
+  };
+
   return (
     <div className="h-screen">
       <div className="flex justify-between h-full">
@@ -10,10 +32,10 @@ const Register = () => {
           <h1 className="text-center text-5xl font-bold mb-6">
             <Link to="/">LOGO</Link>
           </h1>
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Kullanıcı Adı"
-              name={"username"}
+              name={"userName"}
               rules={[
                 {
                   required: true,
@@ -76,6 +98,7 @@ const Register = () => {
                 size="large"
                 htmlType="submit"
                 className="w-full"
+                loading={loading}
               >
                 Kaydol
               </Button>

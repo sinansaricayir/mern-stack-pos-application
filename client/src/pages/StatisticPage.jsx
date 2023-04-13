@@ -5,15 +5,27 @@ import { Area, Pie } from "@ant-design/plots";
 
 const StatisticPage = () => {
   const [data, setData] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     asyncFetch();
   }, []);
 
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/products/get-all");
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProduct();
+  }, []);
+
   const asyncFetch = () => {
-    fetch(
-      "https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json"
-    )
+    fetch("http://localhost:4000/api/invoices/get-all")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -21,47 +33,25 @@ const StatisticPage = () => {
       });
   };
 
+  const totalAmount = () => {
+    const amount = data.reduce((total, item) => item.totalAmount + total, 0);
+    return `${amount.toFixed(2)} ₺`;
+  };
+
   const config = {
     data,
-    xField: "timePeriod",
-    yField: "value",
+    xField: "customerName",
+    yField: "subTotal",
     xAxis: {
       range: [0, 1],
     },
   };
 
-  const data2 = [
-    {
-      type: "分类一",
-      value: 27,
-    },
-    {
-      type: "分类二",
-      value: 25,
-    },
-    {
-      type: "分类三",
-      value: 18,
-    },
-    {
-      type: "分类四",
-      value: 15,
-    },
-    {
-      type: "分类五",
-      value: 10,
-    },
-    {
-      type: "其他",
-      value: 5,
-    },
-  ];
-
   const config2 = {
     appendPadding: 10,
-    data: data2,
-    angleField: "value",
-    colorField: "type",
+    data,
+    angleField: "subTotal",
+    colorField: "customerName",
     radius: 1,
     innerRadius: 0.6,
     label: {
@@ -107,22 +97,22 @@ const StatisticPage = () => {
           <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
             <StatisticCard
               title={"Toplam Müşteri"}
-              amount={24}
+              amount={data.length}
               image={"images/user.png"}
             />
             <StatisticCard
               title={"Toplam Kazanç"}
-              amount={"1266.84₺"}
+              amount={totalAmount()}
               image={"images/money.png"}
             />
             <StatisticCard
               title={"Toplam Satış"}
-              amount={7}
+              amount={data.length}
               image={"images/sale.png"}
             />
             <StatisticCard
               title={"Toplam Ürün"}
-              amount={46}
+              amount={products.length}
               image={"images/product.png"}
             />
           </div>
