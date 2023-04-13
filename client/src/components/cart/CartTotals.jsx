@@ -11,10 +11,12 @@ import {
   decrease,
   reset,
 } from "../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartTotals = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
@@ -22,8 +24,9 @@ const CartTotals = () => {
         Sepetteki Ürünler
       </h2>
       <ul className="cart-items px-2 flex flex-col gap-y-3 pt-2 py-2 overflow-y-auto">
-        {cart.cartItems.length > 0
-          ? cart.cartItems.map((item) => (
+        {cart.cartItems.length > 0 ? (
+          cart.cartItems
+            .map((item) => (
               <li className="cart-item flex justify-between" key={item._id}>
                 <div className="flex items-center">
                   <img
@@ -35,7 +38,7 @@ const CartTotals = () => {
                   <div className="flex flex-col pl-2">
                     <b>{item.title}</b>
                     <span>
-                      {item.price}₺ x {item.quantity}
+                      {item.price.toFixed(2)}₺ x {item.quantity}
                     </span>
                   </div>
                 </div>
@@ -70,7 +73,10 @@ const CartTotals = () => {
                 </div>
               </li>
             ))
-          : "Sepette ürün yok..."}
+            .reverse()
+        ) : (
+          <div className="text-center mt-2 font-bold">Sepette ürün yok...</div>
+        )}
       </ul>
       <div className="cart-totals mt-auto">
         <div className="border-b border-t">
@@ -107,6 +113,7 @@ const CartTotals = () => {
             size="large"
             className="w-full"
             disabled={cart.cartItems.length > 0 ? false : true}
+            onClick={() => navigate("/cart")}
           >
             Sipariş Oluştur
           </Button>
@@ -128,7 +135,7 @@ const CartTotals = () => {
                 danger
                 disabled={cart.cartItems.length > 0 ? false : true}
               >
-                Temizle
+                Sil
               </Button>
             ) : (
               ""

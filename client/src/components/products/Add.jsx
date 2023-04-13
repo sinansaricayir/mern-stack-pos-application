@@ -75,7 +75,7 @@ const Add = ({
             },
           ]}
         >
-          <Input placeholder="ürün fiyat giriniz" />
+          <Input placeholder="ürün fiyat giriniz" type="number" />
         </Form.Item>
         <Form.Item
           label={"Kategori Seç"}

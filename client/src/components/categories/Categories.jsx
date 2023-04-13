@@ -16,18 +16,18 @@ const Categories = ({ categories, setCategories }) => {
         </li>
       ))}
 
-      <li className="category-item  !bg-blue-600 hover:opacity-90">
-        <PlusOutlined
-          className="md:text-3xl text-2xl"
-          onClick={() => setIsAddModalOpen(true)}
-        />
+      <li
+        className="category-item  !bg-blue-600 hover:opacity-90"
+        onClick={() => setIsAddModalOpen(true)}
+      >
+        <PlusOutlined className="md:text-3xl text-2xl" />
       </li>
 
-      <li className="category-item  !bg-fuchsia-600	 hover:opacity-90">
-        <EditOutlined
-          className="md:text-3xl text-2xl"
-          onClick={() => setIsEditModalOpen(true)}
-        />
+      <li
+        className="category-item  !bg-fuchsia-600	 hover:opacity-90"
+        onClick={() => setIsEditModalOpen(true)}
+      >
+        <EditOutlined className="md:text-3xl text-2xl" />
       </li>
 
       <Add

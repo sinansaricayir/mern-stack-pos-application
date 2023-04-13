@@ -5,7 +5,7 @@ const ProductItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addProduct({ ...item, quantity: 1 }));
+    dispatch(addProduct({ ...item, quantity: 1, key: item._id }));
   };
 
   return (
@@ -22,7 +22,7 @@ const ProductItem = ({ item }) => {
       </div>
       <div className="product-info flex flex-col p-3 items-center">
         <span className="font-bold">{item.title}</span>
-        <span>{item.price}₺</span>
+        <span>{item.price.toFixed(2)}₺</span>
       </div>
     </div>
   );
