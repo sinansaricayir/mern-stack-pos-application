@@ -24,16 +24,13 @@ const Login = () => {
         message.success("Giriş işlemi başarılı");
         navigate("/");
         setLoading(false);
-
-        if (values.remember == true) {
-          localStorage.setItem(
-            "postItem",
-            JSON.stringify({
-              username: user.userName,
-              email: user.email,
-            })
-          );
-        }
+        localStorage.setItem(
+          "postUser",
+          JSON.stringify({
+            username: user.userName,
+            email: user.email,
+          })
+        );
       } else if (res.status === 403) {
         message.error("Geçersiz Parola!");
       } else if (res.status === 404) {
