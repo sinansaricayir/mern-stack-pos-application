@@ -13,7 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import "./index.css";
 
-const Header = () => {
+const Header = ({ setSearched }) => {
   const cart = useSelector((state) => state.cart);
   const basketNumber = cart.cartItems.length;
   const navigate = useNavigate();
@@ -40,6 +40,7 @@ const Header = () => {
             placeholder="Ürün Ara ..."
             prefix={<SearchOutlined />}
             className="rounded-full max-w-[auto]"
+            onChange={(e)=>setSearched(e.target.value.toLowerCase())}
           />
         </div>
         <div className="menu-links">

@@ -51,6 +51,7 @@ const cartSlice = createSlice({
     reset: (state, action) => {
       state.cartItems = [];
       state.total = 0;
+      message.info("Sepet silindi.");
     },
   },
 });

@@ -29,4 +29,8 @@ body {
     display: none;
   }
 
+  .products::-webkit-scrollbar {
+    display: none;
+  }
+
 }
