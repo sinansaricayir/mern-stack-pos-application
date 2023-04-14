@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
+const logger = require("morgan");
 const port = 4000;
 
 dotenv.config();
@@ -23,6 +24,8 @@ const connect = async () => {
   }
 };
 
+//middlewares
+app.use(logger("dev"));
 app.use(express.json());
 app.use(cors());
 
