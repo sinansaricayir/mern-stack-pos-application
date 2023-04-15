@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge, Input, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -17,6 +17,7 @@ const Header = ({ setSearched }) => {
   const cart = useSelector((state) => state.cart);
   const basketNumber = cart.cartItems.length;
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const logout = () => {
     if (window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
@@ -34,13 +35,18 @@ const Header = ({ setSearched }) => {
             <h2 className="text-2xl font-bold md:text-4xl">LOGO</h2>
           </Link>
         </div>
-        <div className="header-search flex-1">
+        <div
+          className="header-search flex-1"
+          onClick={() => {
+            pathname !== "/" && navigate("/");
+          }}
+        >
           <Input
             size="large"
             placeholder="Ürün Ara ..."
             prefix={<SearchOutlined />}
             className="rounded-full max-w-[auto]"
-            onChange={(e)=>setSearched(e.target.value.toLowerCase())}
+            onChange={(e) => setSearched(e.target.value.toLowerCase())}
           />
         </div>
         <div className="menu-links">

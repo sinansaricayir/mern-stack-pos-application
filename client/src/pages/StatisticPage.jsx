@@ -84,6 +84,9 @@ const StatisticPage = () => {
     },
   };
 
+  const localStr = localStorage.getItem("postUser");
+  const user = JSON.parse(localStr);
+
   return (
     <>
       <Header />
@@ -92,7 +95,9 @@ const StatisticPage = () => {
         <div>
           <h2 className="text-lg">
             Hoş geldin{" "}
-            <span className="text-xl text-green-700 font-bold">admin</span>
+            <span className="text-xl text-green-700 font-bold">
+              {user.username}
+            </span>
           </h2>
           <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
             <StatisticCard
@@ -117,10 +122,10 @@ const StatisticPage = () => {
             />
           </div>
           <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
-            <div className="lg:w-1/2 lg:h-full h-72">
+            <div className="lg:w-1/2 lg:h-72 h-72">
               <Area {...config} />
             </div>
-            <div className="lg:w-1/2 lg:h-full h-72">
+            <div className="lg:w-1/2 lg:h-72 h-72">
               <Pie {...config2} />
             </div>
           </div>
