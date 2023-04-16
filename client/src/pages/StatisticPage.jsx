@@ -15,7 +15,9 @@ const StatisticPage = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/products/get-all");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+        );
         const data = await res.json();
         setProducts(data);
       } catch (error) {
@@ -26,7 +28,7 @@ const StatisticPage = () => {
   }, []);
 
   const asyncFetch = () => {
-    fetch("http://localhost:4000/api/invoices/get-all")
+    fetch(process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {

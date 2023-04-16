@@ -12,11 +12,14 @@ const Login = () => {
     setLoading(true);
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/auth/login",
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
 
       const user = await res.json();
 

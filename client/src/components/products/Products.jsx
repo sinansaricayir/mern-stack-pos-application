@@ -18,7 +18,9 @@ const Products = ({
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/products/get-all");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+        );
         const data = await res.json();
         setProducts(data);
       } catch (error) {

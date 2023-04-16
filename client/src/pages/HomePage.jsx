@@ -14,7 +14,9 @@ function HomePage() {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/categories/get-all");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+        );
         const data = await res.json();
         setCategories(data);
       } catch (error) {

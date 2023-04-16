@@ -13,7 +13,9 @@ const InvoicePage = () => {
   useEffect(() => {
     const getInvoices = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/invoices/get-all");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all"
+        );
         const data = await res.json();
         const newData = data.map((item) => {
           return { ...item, key: item._id };
