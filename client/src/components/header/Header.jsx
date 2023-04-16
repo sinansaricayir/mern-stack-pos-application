@@ -50,7 +50,10 @@ const Header = ({ setSearched }) => {
           />
         </div>
         <div className="menu-links">
-          <Link to="/" className="menu-link">
+          <Link
+            to="/"
+            className={`menu-link ${pathname === "/" && " text-[#40a9ff]"} `}
+          >
             <HomeOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Anasayfa</span>
           </Link>
@@ -59,20 +62,40 @@ const Header = ({ setSearched }) => {
             offset={[0, 0]}
             className="md:flex hidden"
           >
-            <Link to="/cart" className="menu-link">
+            <Link
+              to="/cart"
+              className={`menu-link ${
+                pathname === "/cart" && " text-[#40a9ff]"
+              } `}
+            >
               <ShoppingCartOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">Sepet</span>
             </Link>
           </Badge>
-          <Link to="/invoices" className="menu-link">
+          <Link
+            to="/invoices"
+            className={`menu-link ${
+              pathname === "/invoices" && " text-[#40a9ff]"
+            } `}
+          >
             <CopyOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Faturalar</span>
           </Link>
-          <Link to="/customers" className="menu-link">
+          <Link
+            to="/customers"
+            className={`menu-link ${
+              pathname === "/customers" && " text-[#40a9ff]"
+            } `}
+          >
             <UserOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Müşteriler</span>
           </Link>
-          <Link to="/statistics" className="menu-link">
+          <Link
+            to="/statistics"
+            className={`menu-link ${
+              pathname === "/statistics" && " text-[#40a9ff]"
+            } `}
+          >
             <BarChartOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">İstatistikler</span>
           </Link>
@@ -84,7 +107,12 @@ const Header = ({ setSearched }) => {
           </div>
         </div>
         <Badge count={basketNumber} offset={[0, 0]} className="md:hidden flex">
-          <Link to="/cart" className="menu-link">
+          <Link
+            to="/cart"
+            className={`menu-link ${
+              pathname === "/cart" && " text-[#40a9ff]"
+            } `}
+          >
             <ShoppingCartOutlined className="text-2xl" />
             <span className="md:text-xs text-[10px]">Sepet</span>
           </Link>

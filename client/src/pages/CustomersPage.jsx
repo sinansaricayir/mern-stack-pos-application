@@ -1,11 +1,11 @@
 import Header from "../components/header/Header";
-import { Table, Button, Input, Space } from "antd";
+import { Table, Button, Input, Space, Spin } from "antd";
 import { useEffect, useState, useRef } from "react";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 
 const InvoicePage = () => {
-  const [invoices, setInvoices] = useState([]);
+  const [invoices, setInvoices] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -165,17 +165,21 @@ const InvoicePage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
-        <h1 className="text-4xl text-center font-bold mb-4">Müşteriler</h1>
-        <Table
-          dataSource={invoices}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{ x: 1200, y: 500 }}
-          rowKey="_id"
-        />
-      </div>
+      {invoices ? (
+        <div className="px-6">
+          <h1 className="text-4xl text-center font-bold mb-4">Müşteriler</h1>
+          <Table
+            dataSource={invoices}
+            columns={columns}
+            bordered
+            pagination={false}
+            scroll={{ x: 1200, y: 500 }}
+            rowKey="_id"
+          />
+        </div>
+      ) : (
+        <Spin size="large" className="absolute left-1/2 top-1/2" />
+      )}
     </>
   );
 };

@@ -4,10 +4,11 @@ import { useEffect, useState, useRef } from "react";
 import PrintInvoice from "../components/invoice/PrintInvoice";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const InvoicePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [invoices, setInvoices] = useState([]);
+  const [invoices, setInvoices] = useState();
   const [printData, setPrintData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -203,17 +204,21 @@ const InvoicePage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
-        <h1 className="text-4xl text-center font-bold mb-4">Faturalar</h1>
-        <Table
-          dataSource={invoices}
-          columns={columns}
-          bordered
-          pagination={true}
-          scroll={{ x: 1200, y: 500 }}
-          rowKey="_id"
-        />
-      </div>
+      {invoices ? (
+        <div className="px-6">
+          <h1 className="text-4xl text-center font-bold mb-4">Faturalar</h1>
+          <Table
+            dataSource={invoices}
+            columns={columns}
+            bordered
+            pagination={true}
+            scroll={{ x: 1200, y: 500 }}
+            rowKey="_id"
+          />
+        </div>
+      ) : (
+        <Spin size="large" className="absolute left-1/2 top-1/2" />
+      )}
       <PrintInvoice
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
