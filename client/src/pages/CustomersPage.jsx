@@ -175,7 +175,7 @@ const InvoicePage = () => {
             columns={columns}
             bordered
             pagination={false}
-            scroll={{ x: 1200, y: 500 }}
+            scroll={{ x: 1200, y: 300 }}
             rowKey="_id"
           />
         </div>
