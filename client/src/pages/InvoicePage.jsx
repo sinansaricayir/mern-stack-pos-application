@@ -207,7 +207,7 @@ const InvoicePage = () => {
     <>
       <Header />
       {invoices ? (
-        <div className="px-6">
+        <div className="px-6 min-h-[550px]">
           <h1 className="text-4xl text-center font-bold mb-4">Faturalar</h1>
           <Table
             dataSource={invoices}
