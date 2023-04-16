@@ -20,7 +20,7 @@ const CartPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-  
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -244,7 +244,7 @@ const CartPage = () => {
           pagination={false}
           scroll={{ x: 1200, y: 400 }}
         />
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-end mt-4 mb-16">
           <Card className="w-72">
             <div className="flex justify-between">
               <span>Ara Toplam</span>
